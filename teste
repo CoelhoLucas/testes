@@ -1,0 +1,20 @@
+$dados = array(
+					'tempodocentesaux_idtempodocentesaux' => $this->input->post('tempodocentesaux_idtempodocentesaux'),
+					'questionario_idquestionario' => $this->input->post('questionario_idquestionario'),
+					'respostas' =>$this->input->post('respostas'),
+					'perguntas_idperguntas' =>$this->input->post('perguntas_idperguntas')
+					);
+
+
+
+				//ACESSA OS VALORES DO ARRAY $dados
+				$tempodocentesaux_idtempodocentesaux= element('tempodocentesaux_idtempodocentesaux',$dados);
+				$questionario_idquestionario= element('questionario_idquestionario',$dados);
+
+				for ($i=0; $i <sizeof($dados['respostas']) ; $i++) { 
+					$query = $this->db->query("INSERT INTO avaliacaodocente (tempodocentesaux_idtempodocentesaux,questionario_idquestionario,perguntas_idperguntas,respostas) VALUES ('".$tempodocentesaux_idtempodocentesaux."','".$dados['questionario_idquestionario']."','".$dados['perguntas_idperguntas'][$i]."','".$dados['respostas'][$i]."')");
+				}
+
+				$query = $this->db->query("UPDATE tempdocentesaux  SET status = 'AVALIADO'
+					WHERE idtempdocentesaux =".$tempodocentesaux_idtempodocentesaux."");
+				
